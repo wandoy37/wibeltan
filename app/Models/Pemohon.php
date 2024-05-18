@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Materi extends Model
+class Pemohon extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function pemohons()
+    public function materis()
     {
-        return $this->belongsToMany(Pemohon::class, 'materi_pemohon')->withTimestamps();
+        return $this->belongsToMany(Materi::class, 'materi_pemohon')->withTimestamps();
     }
 }
