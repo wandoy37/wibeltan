@@ -4,9 +4,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
-@if (session('fails'))
+@if (session('error'))
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{ session('fails') }}
+        {{ session('error') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif

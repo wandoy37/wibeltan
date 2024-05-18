@@ -94,7 +94,47 @@ class PemohonController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $pemohon = Pemohon::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+            'tanggal_pelaksanaan' => 'required',
+            'asal' => 'required',
+            'email' => 'required',
+            'no_hp' => 'required',
+            'count_peserta' => 'required',
+            'count_gazebo' => 'required',
+            'materis' => 'required',
+            'verifikasi' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('dashboard.eidt', $pemohon->id)
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        DB::beginTransaction();
+        try {
+            $pemohon->update([
+                'nama' => $request->nama,
+                'tanggal_pelaksanaan' => $request->tanggal_pelaksanaan,
+                'asal' => $request->asal,
+                'email' => $request->email,
+                'no_hp' => $request->no_hp,
+                'count_peserta' => $request->count_peserta,
+                'count_gazebo' => $request->count_gazebo,
+                'verifikasi' => $request->verifikasi,
+            ]);
+            $pemohon->materis()->sync($request->materis);
+
+            return redirect()->route('dashboard.index')->with('success', 'Permohonan Berhasil Di Update');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('dashboard.edit', $pemohon->id)->with('error', 'Permohonan Gagal Di Update');
+        } finally {
+            DB::commit();
+        }
     }
 
     /**
@@ -102,6 +142,19 @@ class PemohonController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $pemohon = Pemohon::find($id);
+
+        DB::beginTransaction();
+        try {
+            $pemohon->materis()->detach();
+            $pemohon->delete();
+            return redirect()->route('dashboard.index')->with('success', 'Permohonan Telah di Hapus');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->route('dashboard.index')->with('error', 'Permohonan Gagal di Hapus');
+        } finally {
+            DB::commit();
+            return redirect()->back();
+        }
     }
 }

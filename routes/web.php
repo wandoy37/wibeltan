@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PemohonController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', [PemohonController::class, 'index'])->name('index');
 
-Route::resource('/', PemohonController::class);
+Route::resource('/pemohon', PemohonController::class);
+
+Route::resource('/dashboard', DashboardController::class);

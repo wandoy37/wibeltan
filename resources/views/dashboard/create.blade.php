@@ -25,7 +25,7 @@
                         <h2>Ajukan Permohonan</h2>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('pemohon.store') }}" method="POST">
+                        <form action="{{ route('store') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">

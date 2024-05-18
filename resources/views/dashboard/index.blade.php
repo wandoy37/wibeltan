@@ -1,40 +1,35 @@
 @extends('layouts.app')
 
-@section('title', '- Wisata Belajar Pertanian')
+@section('title', '- Dashboard Index')
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="py-4">WIBELTAN</h1>
+                <h1 class="py-4">WIBELTAN - DASHBOARD</h1>
                 <p class="display-6">Sistem Informasi - Wisata Belajar Pertanian</p>
 
                 {{-- Alert --}}
                 @include('layouts.alert')
                 {{-- End Alert --}}
 
-                <div class="my-4">
-                    <a href="{{ route('pemohon.create') }}" class="btn btn-success">
-                        DAFTAR
-                    </a>
-                </div>
-
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th scope="col">HARI/TANGGAL PELAKSANAAN</th>
                             <th scope="col">ASAL</th>
                             <th scope="col">JUMLAH PESERTA</th>
                             <th scope="col">MATERI</th>
                             <th scope="col">KETERANGAN</th>
+                            <th scope="col">AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($pemohons as $pemohon)
                             <tr>
-                                <th scope="row">{{ $pemohon->tanggal_pelaksanaan }}</th>
+                                <th scope="row" class="text-center">{{ $pemohon->tanggal_pelaksanaan }}</th>
                                 <td>{{ $pemohon->asal }}</td>
-                                <td>{{ $pemohon->count_peserta }}</td>
+                                <td class="text-center">{{ $pemohon->count_peserta }}</td>
                                 <td>
                                     <ul>
                                         @if ($pemohon->materis)
@@ -46,8 +41,21 @@
                                         @endif
                                     </ul>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{ $pemohon->verifikasi }}
+                                </td>
+                                <td>
+                                    <form action="{{ route('pemohon.destroy', $pemohon->id) }}" method="POST"
+                                        class="form-inline justify-content-center">
+                                        @csrf
+                                        @method('DELETE')
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('dashboard.edit', $pemohon->id) }}"
+                                                class="btn btn-outline-primary">Edit</a>
+                                            <button type="submit" class="btn btn-outline-danger"
+                                                onclick="return confirm('Anda yakin ingin menghapus permohonan ini ?')">Hapus</button>
+                                        </div>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
