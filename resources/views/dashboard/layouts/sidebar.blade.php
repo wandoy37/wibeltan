@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('dashboard.index') }}">
+                    <a href="{{ route('objek-retribusi.index') }}">
                         <i class="fab fa-r-project"></i>
                         <p>Objek Retribusi</p>
                     </a>
