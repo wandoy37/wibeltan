@@ -17,6 +17,9 @@
                     <a href="{{ route('pemohon.create') }}" class="btn btn-success">
                         DAFTAR
                     </a>
+                    <a href="{{ route('kalender.index') }}" class="btn btn-info">
+                        Lihat Jadwal
+                    </a>
                 </div>
 
                 <table class="table">

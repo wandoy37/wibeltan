@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\PemohonController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PemohonController::class, 'index'])->name('index');
+Route::get('/lihat-jadwal', [KalenderController::class, 'index'])->name('kalender.index');
 
 Route::resource('/pemohon', PemohonController::class);
 
