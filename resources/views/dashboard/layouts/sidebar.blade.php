@@ -25,16 +25,22 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
             <ul class="nav nav-secondary">
-                <li class="nav-item active">
+                <li class="nav-item {{ request()->segment(1) == 'dashboard' ? 'active' : '' }}">
                     <a href="{{ route('dashboard.index') }}">
                         <i class="fas fa-desktop"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ request()->segment(1) == 'objek-retribusi' ? 'active' : '' }}">
                     <a href="{{ route('objek-retribusi.index') }}">
                         <i class="fab fa-r-project"></i>
                         <p>Objek Retribusi</p>
+                    </a>
+                </li>
+                <li class="nav-item {{ request()->segment(1) == 'materi' ? 'active' : '' }}">
+                    <a href="{{ route('materi.index') }}">
+                        <i class="fas fa-clipboard-list"></i>
+                        <p>Materi</p>
                     </a>
                 </li>
             </ul>

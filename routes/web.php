@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ObjekRetribusiController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 // Route Objek Retribusi
 Route::resource('/objek-retribusi', ObjekRetribusiController::class);
+
+// Route Materi
+Route::resource('/materi', MateriController::class);
