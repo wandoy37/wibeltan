@@ -43,6 +43,12 @@
                         <p>Materi</p>
                     </a>
                 </li>
+                <li class="nav-item {{ request()->segment(1) == 'pemohon' ? 'active' : '' }}">
+                    <a href="{{ route('pemohon.index') }}">
+                        <i class="fas fa-user-tie"></i>
+                        <p>Pemohon</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

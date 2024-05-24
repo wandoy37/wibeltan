@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ObjekRetribusiController;
+use App\Http\Controllers\PemohonController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +30,6 @@ Route::resource('/objek-retribusi', ObjekRetribusiController::class);
 
 // Route Materi
 Route::resource('/materi', MateriController::class);
+
+// Route Pemohon
+Route::resource('/pemohon', PemohonController::class);
