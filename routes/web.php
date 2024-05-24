@@ -22,14 +22,18 @@ Route::get('/', function () {
 });
 
 
-// Route Dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-// Route Objek Retribusi
-Route::resource('/objek-retribusi', ObjekRetribusiController::class);
 
-// Route Materi
-Route::resource('/materi', MateriController::class);
+Route::middleware(['auth'])->group(function () {
+    // Route Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-// Route Pemohon
-Route::resource('/pemohon', PemohonController::class);
+    // Route Objek Retribusi
+    Route::resource('/objek-retribusi', ObjekRetribusiController::class);
+
+    // Route Materi
+    Route::resource('/materi', MateriController::class);
+
+    // Route Pemohon
+    Route::resource('/pemohon', PemohonController::class);
+});
