@@ -33,6 +33,8 @@
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="{{ asset('kaiadmin_lite') }}/assets/css/demo.css">
+
+    @stack('style')
 </head>
 
 <body>

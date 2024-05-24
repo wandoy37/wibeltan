@@ -116,22 +116,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="form-group">
-                                <label>StatusVerifikasi</label>
-                                <select class="form-select form-control @error('verifikasi') is-invalid @enderror"
-                                    name="verifikasi">
-                                    <option>- Status Verivikasi -</option>
-                                    <option value="disetujui" {{ old('verifikasi') == 'disetujui' ? 'selected' : '' }}>
-                                        disetujui
-                                    </option>
-                                    <option value="menunggu persetujuan"
-                                        {{ old('verifikasi') == 'menunggu persetujuan' ? 'selected' : '' }}>
-                                        menunggu persetujuan
-                                    </option>
-                                    <option value="ditolak" {{ old('verifikasi') == 'ditolak' ? 'selected' : '' }}>ditolak
-                                    </option>
-                                </select>
-                            </div> --}}
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-round">
                                     <i class="far fa-save"></i>
