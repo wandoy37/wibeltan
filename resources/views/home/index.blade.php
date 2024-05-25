@@ -44,7 +44,7 @@
                         <i class="fa-regular fa-calendar-days"></i>
                         Lihat Jadwal
                     </a>
-                    <a href="http://" class="button-1">
+                    <a href="{{ route('daftar') }}" class="button-1">
                         Daftar
                     </a>
                 </div>

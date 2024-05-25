@@ -26,7 +26,14 @@ use Illuminate\Support\Facades\Route;
 
 // Route Home Views
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
+// Lihat Jadwal
 Route::get('/lihat-jadwal', [HomeController::class, 'jadwal'])->name('jadwal');
+// Form Daftar Permohonan Wisata
+Route::get('/daftar', [HomeController::class, 'daftar'])->name('daftar');
+Route::post('/daftar/store', [HomeController::class, 'store'])->name('daftar.store');
+Route::get('/success', function () {
+    return view('home/success');
+})->name('success');
 
 
 Route::middleware(['auth'])->group(function () {

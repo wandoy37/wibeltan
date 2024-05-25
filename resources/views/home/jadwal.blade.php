@@ -1,8 +1,3 @@
-@php
-    use Carbon\Carbon;
-    $today = Carbon::today();
-@endphp
-
 @extends('home.layouts.app')
 
 @section('title', 'Jadwal Wisata Belajar Pertanian')
