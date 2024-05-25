@@ -1,0 +1,74 @@
+.breadcrumb-background {
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), var(--breadcrumb-background);
+    background-size: cover; /* Membuat gambar latar belakang menutupi seluruh area */
+    background-position: center; /* Posisi gambar latar belakang di tengah */
+    background-repeat: no-repeat; /* Menghindari pengulangan gambar latar belakang */
+    padding: 100px 0; /* Sesuaikan padding sesuai kebutuhan Anda */
+    /* Tambahan CSS lainnya sesuai kebutuhan */
+}
+
+.breadcrumb-item a{
+    color: white;
+}
+
+.breadcrumb-title {
+    color: white;
+}
+
+.breadcrumb-item.active {
+    color: white;
+    font-weight: bold;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: white;
+}
+
+/* Components */
+.button-1 {
+    background-color: #013220; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    
+    border-radius: 25px;
+  }
+
+  .button-1:hover {
+    color: white; /* Pastikan teks tetap berwarna putih */
+    text-decoration: none; /* Hilangkan garis bawah */
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.button-2 {
+    background-color: #d3d3d3; /* Green */
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    
+    border-radius: 25px;
+  }
+
+  .button-2:hover {
+    color: black; /* Pastikan teks tetap berwarna putih */
+    text-decoration: none; /* Hilangkan garis bawah */
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
