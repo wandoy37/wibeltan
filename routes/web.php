@@ -22,6 +22,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::get('/kuwitansi', function () {
+    return view('kuwitansi');
+});
+
 
 
 // Route Home Views
