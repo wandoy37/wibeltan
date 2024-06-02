@@ -28,6 +28,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 // Lihat Jadwal
 Route::get('/lihat-jadwal', [HomeController::class, 'jadwal'])->name('jadwal');
+// Lihat Materi
+Route::get('/materi-wisata-belajar-pertanian', [HomeController::class, 'materi'])->name('materis');
+
 // Form Daftar Permohonan Wisata
 Route::get('/daftar', [HomeController::class, 'daftar'])->name('daftar');
 Route::post('/daftar/store', [HomeController::class, 'store'])->name('daftar.store');

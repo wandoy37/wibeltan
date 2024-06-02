@@ -15,4 +15,9 @@ class Materi extends Model
     {
         return $this->belongsToMany(Pemohon::class, 'materi_pemohon')->withTimestamps();
     }
+
+    public function getHargaRupiahAttribute()
+    {
+        return number_format($this->harga, 0, ',', '.');
+    }
 }

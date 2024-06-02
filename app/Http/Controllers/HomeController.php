@@ -22,6 +22,12 @@ class HomeController extends Controller
         return view('home.jadwal', compact('jadwals'));
     }
 
+    public function materi()
+    {
+        $materis = Materi::orderBy('id', 'DESC')->get();
+        return view('home.materi', compact('materis'));
+    }
+
     public function daftar(Request $request)
     {
         $materi_pilihans = Materi::where('kategori', 'pilihan')->orderBy('id', 'DESC')->get();
