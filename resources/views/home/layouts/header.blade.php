@@ -5,7 +5,7 @@
             <a class="navbar-brand" href="{{ url('/') }}">
                 <img src="{{ asset('img/logo_kaltim.png') }}" alt="Logo" width="30"
                     class="d-inline-block align-text-center me-2">
-                <b>SIMPELTAN</b>
+                <b>WIBELTAN</b>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +37,7 @@
                     <li class="nav-item mx-4">
                         <a class="nav-link {{ request()->segment(1) == 'informasi' ? 'active' : '' }}" href="/">
                             <i class="fa-solid fa-bullhorn"></i>
-                            Publikasi
+                            Publikasi & Pertanaman
                         </a>
                     </li>
                 </ul>
