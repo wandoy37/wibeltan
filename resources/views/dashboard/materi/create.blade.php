@@ -63,6 +63,12 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label>Thumbnail</label>
+                                <input type="file" name="thumbnail"
+                                    class="form-control form-control @error('thumbnail') is-invalid @enderror"
+                                    value="{{ old('thumbnail') }}" />
+                            </div>
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-round">
                                     <i class="far fa-save"></i>
                                     Simpan
