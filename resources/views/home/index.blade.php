@@ -19,13 +19,66 @@
             vertical-align: middle;
         }
     </style>
+
+
+    {{-- Carousel --}}
+    <style>
+        .carousel-inner img {
+            height: 400px;
+            /* Sesuaikan dengan kebutuhan Anda */
+            object-fit: cover;
+            /* Menjaga proporsi gambar dan mengisi container */
+            width: 100%;
+        }
+    </style>
+
+    <style>
+        .carousel-caption h1 {
+            font-size: 3rem;
+            /* Sesuaikan ukuran teks */
+            font-weight: bold;
+            color: #fff;
+            /* Warna teks */
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-caption p {
+            font-size: 1.5rem;
+            /* Sesuaikan ukuran teks */
+            color: #fff;
+            /* Warna teks */
+        }
+    </style>
 @endpush
 
 
 
 
 @section('content')
-    <section class="breadcrumb-background">
+
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ asset('img/img_1.png') }}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('img/img_2.png') }}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('img/img_3.png') }}" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    {{-- <section class="breadcrumb-background">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -34,7 +87,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <section class="my-4">
         <div class="container">

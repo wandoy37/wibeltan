@@ -23,6 +23,11 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
+Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
+
+
 
 // Route Home Views
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -30,6 +35,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/lihat-jadwal', [HomeController::class, 'jadwal'])->name('jadwal');
 // Lihat Materi
 Route::get('/materi-wisata-belajar-pertanian', [HomeController::class, 'materi'])->name('materis');
+Route::get('materi-wisata-belajar-pertanian/{slug}', [HomeController::class, 'materi_show'])->name('materis.show');
+
+// Publikasi & Jadwal Pertanaman
+Route::get('/publikasi-dan-pertanaman', [HomeController::class, 'publikasi_pertanaman'])->name('publikasi.pertanaman');
 
 // Form Daftar Permohonan Wisata
 Route::get('/daftar', [HomeController::class, 'daftar'])->name('daftar');

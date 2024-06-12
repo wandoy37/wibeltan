@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('materis', function (Blueprint $table) {
             $table->string('thumbnail')->nullable()->after('kategori');
+            $table->text('konten')->nullable()->after('thumbnail');
+            $table->string('slug')->nullable()->after('nama');
         });
     }
 
@@ -23,6 +25,8 @@ return new class extends Migration
     {
         Schema::table('materis', function (Blueprint $table) {
             $table->dropColumn('thumbnail');
+            $table->dropColumn('konten');
+            $table->dropColumn('slug');
         });
     }
 };

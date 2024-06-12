@@ -2,6 +2,10 @@
 
 @section('title', 'Tambah Materi')
 
+@push('style')
+    <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
+@endpush
+
 @section('content')
     <div class="page-inner">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
@@ -64,9 +68,26 @@
                             </div>
                             <div class="form-group">
                                 <label>Thumbnail</label>
-                                <input type="file" name="thumbnail"
-                                    class="form-control form-control @error('thumbnail') is-invalid @enderror"
-                                    value="{{ old('thumbnail') }}" />
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <a id="lfm" data-input="thumbnail" data-preview="holder"
+                                            class="btn btn-primary">
+                                            <i class="fa fa-picture-o"></i> Choose
+                                        </a>
+                                    </span>
+                                    <input id="thumbnail" class="form-control" type="text" name="thumbnail">
+                                </div>
+                                <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="font-weight-bold text-gray-900">Konten</label>
+                                @error('konten')
+                                    <span class="text-danger font-italic">
+                                        <i class="fas fa-exclamation"></i>
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                                <textarea id="default" name="konten">{{ old('konten') }}</textarea>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-round">
@@ -81,3 +102,34 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
+    <script>
+        $('#lfm').filemanager('image');
+    </script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea#default',
+            extended_valid_elements: 'img[class=img-fluid|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name]',
+            promotion: false,
+            plugins: [
+                'advlist', 'autolink', 'link', 'image', 'lists', 'charmap', 'preview', 'anchor', 'pagebreak',
+                'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen',
+                'insertdatetime',
+                'media', 'table', 'emoticons', 'help'
+            ],
+            toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media | forecolor backcolor emoticons',
+        });
+
+        // Event Stand alone filemanager
+        $('#lfm').filemanager('image');
+
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+@endpush

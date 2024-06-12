@@ -35,7 +35,8 @@
                         </a>
                     </li>
                     <li class="nav-item mx-4">
-                        <a class="nav-link {{ request()->segment(1) == 'informasi' ? 'active' : '' }}" href="/">
+                        <a class="nav-link {{ request()->segment(1) == 'materi-wisata-belajar-pertanian' ? 'active' : '' }}"
+                            href="{{ route('publikasi.pertanaman') }}">
                             <i class="fa-solid fa-bullhorn"></i>
                             Publikasi & Pertanaman
                         </a>

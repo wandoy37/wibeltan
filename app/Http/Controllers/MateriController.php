@@ -6,6 +6,7 @@ use App\Models\Materi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class MateriController extends Controller
 {
@@ -37,6 +38,8 @@ class MateriController extends Controller
             'satuan' => 'required',
             'harga' => 'required',
             'kategori' => 'required',
+            'thumbnail' => 'required',
+            'konten' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -49,10 +52,13 @@ class MateriController extends Controller
         try {
             Materi::create([
                 'nama' => $request->nama,
+                'slug' => Str::slug($request->nama),
                 'volume' => $request->volume,
                 'satuan' => $request->satuan,
                 'harga' => $request->harga,
                 'kategori' => $request->kategori,
+                'thumbnail' => $request->thumbnail,
+                'konten' => $request->konten,
             ]);
 
             return redirect()->route('materi.index')->with('success', 'Materi Berhasil Di Buat');
@@ -94,6 +100,8 @@ class MateriController extends Controller
             'satuan' => 'required',
             'harga' => 'required',
             'kategori' => 'required',
+            'thumbnail' => 'required',
+            'konten' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -106,10 +114,13 @@ class MateriController extends Controller
         try {
             $materi->update([
                 'nama' => $request->nama,
+                'slug' => Str::slug($request->nama),
                 'volume' => $request->volume,
                 'satuan' => $request->satuan,
                 'harga' => $request->harga,
                 'kategori' => $request->kategori,
+                'thumbnail' => $request->thumbnail,
+                'konten' => $request->konten,
             ]);
 
             return redirect()->route('materi.index')->with('success', 'Materi Berhasil Di Update');

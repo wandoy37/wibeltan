@@ -25,7 +25,18 @@ class HomeController extends Controller
     public function materi()
     {
         $materis = Materi::orderBy('id', 'DESC')->get();
-        return view('home.materi', compact('materis'));
+        return view('home.materi.index', compact('materis'));
+    }
+
+    public function materi_show($slug)
+    {
+        $materi = Materi::where('slug', $slug)->first();
+        return view('home.materi.show', compact('materi'));
+    }
+
+    public function publikasi_pertanaman()
+    {
+        return view('home.publikasi');
     }
 
     public function daftar(Request $request)
