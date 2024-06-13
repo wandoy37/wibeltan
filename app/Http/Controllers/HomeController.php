@@ -34,7 +34,7 @@ class HomeController extends Controller
         return view('home.materi.show', compact('materi'));
     }
 
-    public function publikasi_pertanaman()
+    public function publikasi()
     {
         return view('home.publikasi');
     }
@@ -43,7 +43,8 @@ class HomeController extends Controller
     {
         $materi_pilihans = Materi::where('kategori', 'pilihan')->orderBy('id', 'DESC')->get();
         $materi_bawaans = Materi::where('kategori', 'bawaan')->orderBy('id', 'DESC')->get();
-        return view('home.daftar', compact('materi_pilihans', 'materi_bawaans'));
+        $jadwals = Pemohon::where('verifikasi', 'disetujui')->get();
+        return view('home.daftar', compact('materi_pilihans', 'materi_bawaans', 'jadwals'));
     }
 
     public function store(Request $request)

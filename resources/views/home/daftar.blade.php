@@ -2,6 +2,13 @@
 
 @section('title', 'Daftar Wisata Belajar Pertanian')
 
+@push('style')
+    {{-- <link rel="stylesheet" href="{{ asset('jquery/datepicker/jquery-ui.css') }}"> --}}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="{{ asset('jquery/datepicker/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('jquery/datepicker/jquery-ui.js') }}"></script>
+@endpush
+
 @section('content')
     <section class="breadcrumb-background">
         <div class="container">
@@ -46,7 +53,7 @@
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label">Tanggal Pelaksanaan</label>
-                                            <input type="date" name="tanggal_pelaksanaan"
+                                            <input type="text" name="tanggal_pelaksanaan" id="datepicker"
                                                 class="form-control @error('tanggal_pelaksanaan') is-invalid @enderror"
                                                 value="{{ old('tanggal_pelaksanaan') }}">
                                         </div>
@@ -143,3 +150,20 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        $(function() {
+            var disabledDates = @json($jadwals->pluck('tanggal_pelaksanaan'));
+
+            function disableDates(date) {
+                var string = $.datepicker.formatDate('yy-mm-dd', date);
+                return [disabledDates.indexOf(string) === -1];
+            }
+
+            $("#datepicker").datepicker({
+                beforeShowDay: disableDates
+            });
+        });
+    </script>
+@endpush

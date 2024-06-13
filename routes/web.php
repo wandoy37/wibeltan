@@ -38,7 +38,7 @@ Route::get('/materi-wisata-belajar-pertanian', [HomeController::class, 'materi']
 Route::get('materi-wisata-belajar-pertanian/{slug}', [HomeController::class, 'materi_show'])->name('materis.show');
 
 // Publikasi & Jadwal Pertanaman
-Route::get('/publikasi-dan-pertanaman', [HomeController::class, 'publikasi_pertanaman'])->name('publikasi.pertanaman');
+Route::get('/publikasi', [HomeController::class, 'publikasi'])->name('publikasi');
 
 // Form Daftar Permohonan Wisata
 Route::get('/daftar', [HomeController::class, 'daftar'])->name('daftar');
