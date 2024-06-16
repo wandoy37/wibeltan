@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Materi;
 use App\Models\Pemohon;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -36,7 +38,20 @@ class HomeController extends Controller
 
     public function publikasi()
     {
-        return view('home.publikasi');
+        $today = Carbon::today();
+
+        // Mencari data pemohons yang verifikasi disetujui dan tanggal_pelaksanaan sudah lewat dari hari ini
+        $pemohons = Pemohon::where('verifikasi', 'disetujui')
+            ->where('tanggal_pelaksanaan', '<', $today)
+            ->get();
+        return view('home.publikasi.index', compact('pemohons'));
+    }
+
+    public function publikasis_show($id)
+    {
+        $pemohon = Pemohon::find($id);
+        $photos = Photo::where('pemohon_id', $pemohon->id)->get();
+        return view('home.publikasi.show', compact('pemohon', 'photos'));
     }
 
     public function daftar(Request $request)

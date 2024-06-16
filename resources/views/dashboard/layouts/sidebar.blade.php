@@ -49,6 +49,12 @@
                         <p>Pemohon</p>
                     </a>
                 </li>
+                <li class="nav-item {{ request()->segment(1) == 'publikasi' ? 'active' : '' }}">
+                    <a href="{{ route('publikasi.index') }}">
+                        <i class="fas fa-bullhorn"></i>
+                        <p>Publikasi</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

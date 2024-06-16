@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ObjekRetribusiController;
 use App\Http\Controllers\PemohonController;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PublikasiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +40,8 @@ Route::get('/materi-wisata-belajar-pertanian', [HomeController::class, 'materi']
 Route::get('materi-wisata-belajar-pertanian/{slug}', [HomeController::class, 'materi_show'])->name('materis.show');
 
 // Publikasi & Jadwal Pertanaman
-Route::get('/publikasi', [HomeController::class, 'publikasi'])->name('publikasi');
+Route::get('/publikasi-wisata-belajar-pertanian', [HomeController::class, 'publikasi'])->name('publikasi');
+Route::get('/publikasi-wisata-belajar-pertanian/{id}', [HomeController::class, 'publikasis_show'])->name('publikasis.show');
 
 // Form Daftar Permohonan Wisata
 Route::get('/daftar', [HomeController::class, 'daftar'])->name('daftar');
@@ -60,4 +63,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Route Pemohon
     Route::resource('/pemohon', PemohonController::class);
+
+    // Route Publikasi
+    Route::resource('/publikasi', PublikasiController::class);
+    // Route Photos
+    Route::resource('/photos', PhotoController::class);
+    // Route Tambah Photo
+    Route::post('/tambah/photo/{id}', [PhotoController::class, 'tambah_photo'])->name('tambah.photo');
 });

@@ -15,4 +15,9 @@ class Pemohon extends Model
     {
         return $this->belongsToMany(Materi::class, 'materi_pemohon')->withTimestamps();
     }
+
+    public function photos()
+    {
+        return $this->belongsToMany(Photo::class)->withTimestamps();
+    }
 }

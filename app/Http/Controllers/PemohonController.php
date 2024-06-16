@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Materi;
 use App\Models\Pemohon;
-use App\Services\FonTelService;
-use App\Services\FonteService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
