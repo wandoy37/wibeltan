@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Materi;
 use App\Models\Pemohon;
 use App\Models\Photo;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,8 @@ class HomeController extends Controller
     public function index()
     {
         $pemohons = Pemohon::orderBy('id', 'DESC')->get();
-        return view('home.index', compact('pemohons'));
+        $videos = Video::orderBy('id', 'DESC')->take(3)->get();
+        return view('home.index', compact('pemohons', 'videos'));
     }
 
     public function jadwal()

@@ -55,6 +55,12 @@
                         <p>Publikasi</p>
                     </a>
                 </li>
+                <li class="nav-item {{ request()->segment(1) == 'videos' ? 'active' : '' }}">
+                    <a href="{{ route('videos.index') }}">
+                        <i class="fas fa-video"></i>
+                        <p>Video</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

@@ -180,7 +180,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>Cuplika Wisata Belajar Pertanian</h2>
+                    <h2 class="my-4">Cuplika Wisata Belajar Pertanian</h2>
+                    <div class="row">
+                        @foreach ($videos as $video)
+                            <div class="col-md-4">
+                                <iframe width="420" height="315" src="{{ $video->link }}">
+                                </iframe>
+                            </div>
+                        @endforeach
+                    </div>
+                    <hr class="my-4">
                 </div>
             </div>
         </div>

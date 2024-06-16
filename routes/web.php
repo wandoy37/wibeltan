@@ -7,6 +7,7 @@ use App\Http\Controllers\ObjekRetribusiController;
 use App\Http\Controllers\PemohonController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PublikasiController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,4 +71,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/photos', PhotoController::class);
     // Route Tambah Photo
     Route::post('/tambah/photo/{id}', [PhotoController::class, 'tambah_photo'])->name('tambah.photo');
+
+    // Route Videos
+    Route::resource('/videos', VideoController::class);
 });
