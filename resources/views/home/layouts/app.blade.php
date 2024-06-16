@@ -18,7 +18,7 @@
     <link href="{{ asset('bootstrap/css/style.css') }}" rel="stylesheet">
     <style>
         :root {
-            --breadcrumb-background: url('{{ asset('img/landscape-green-color.png') }}');
+            --breadcrumb-background: url('{{ asset('img/bg-breadcrumb.jpg') }}');
         }
     </style>
     @stack('style')

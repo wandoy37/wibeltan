@@ -78,28 +78,15 @@
         </button>
     </div>
 
-    {{-- <section class="breadcrumb-background">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="pt-2 breadcrumb-title">WIBELTAN</h2>
-                    <h4 class="breadcrumb-title">Sistem Informasi Wisata Belajar Pertanian</h4>
-                </div>
-            </div>
-        </div>
-    </section> --}}
-
     <section class="my-4">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 d-flex justify-content-between">
-                    <a href="{{ route('jadwal') }}" class="button-2">
-                        <i class="fa-regular fa-calendar-days"></i>
-                        Lihat Jadwal
-                    </a>
-                    <a href="{{ route('daftar') }}" class="button-1">
-                        Daftar
-                    </a>
+                <div class="col-lg-12">
+                    <div class="d-grid gap-2">
+                        <a href="{{ route('daftar') }}" class="button-1">
+                            DAFTAR DISINI
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
