@@ -18,13 +18,18 @@
         <div class="container">
             <div class="row">
                 @foreach ($pemohons as $pemohon)
+                    @php
+                        $photos = \App\Models\Photo::where('pemohon_id', $pemohon->id)->get();
+                        $thumbnail = $photos->first();
+                    @endphp
                     <div class="col-md-4 my-2">
-                        <div style="box-shadow: 0 0  20px #ddd;">
+                        <div style="box-shadow: 0 0 20px #ddd;">
                             <div class="position-relative"
-                                style="height: 320px; background-image: url('https://iskol-agridaya.com/wp-content/uploads/2019/06/2-Organic-Edutourism-Program-Iskol-Agridaya-Slider-2.jpg'); background-position: center; background-size: cover;">
+                                style="height: 320px; background-image: url('{{ optional($thumbnail)->photo_path ?: 'http://wibeltan.test/storage/photos/1/1344080-landscape-green-color-environment-growth-plant 1.png' }}'); background-position: center; background-size: cover;">
                                 <div class="position-absolute px-3 py-4 materi-description"
                                     style="right: 0; bottom: 0; left: 0;">
-                                    <h3 class="h6"><a href="{{ route('publikasis.show', $pemohon->id) }}"
+                                    <h3 class="h6">
+                                        <a href="{{ route('publikasis.show', $pemohon->id) }}"
                                             class="text-white text-decoration-none text-capitalize"
                                             style="line-height: 1.6; font-weight:700;">{{ $pemohon->asal }}</a>
                                     </h3>
