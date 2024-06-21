@@ -61,6 +61,11 @@
                         <p>Video</p>
                     </a>
                 </li>
+                <li class="nav-item {{ request()->segment(1) == 'survey' ? 'active' : '' }}">
+                    <a href="{{ route('survey.index') }}">
+                        <p>Survey</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

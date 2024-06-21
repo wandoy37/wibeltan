@@ -7,6 +7,7 @@ use App\Http\Controllers\ObjekRetribusiController;
 use App\Http\Controllers\PemohonController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PublikasiController;
+use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +52,11 @@ Route::get('/success', function () {
     return view('home/success');
 })->name('success');
 
+// Send Survey
+Route::post('/survey/store', [SurveyController::class, 'store'])->name('survey.store');
+// Survey Success
+Route::get('/survey/success', [SurveyController::class, 'success'])->name('survey.success');
+
 
 Route::middleware(['auth'])->group(function () {
     // Route Dashboard
@@ -74,4 +80,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Route Videos
     Route::resource('/videos', VideoController::class);
+
+    // Survey Index
+    Route::get('/survey', [DashboardController::class, 'survey'])->name('survey.index');
 });
