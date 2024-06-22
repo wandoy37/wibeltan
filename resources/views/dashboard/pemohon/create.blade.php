@@ -94,9 +94,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Jumlah Gazebo</label>
-                                        <input type="number" name="count_gazebo"
-                                            class="form-control form-control @error('count_gazebo') is-invalid @enderror"
-                                            value="{{ old('count_gazebo') }}" />
+                                        <select class="form-select form-control @error('count_gazebo') is-invalid @enderror"
+                                            name="count_gazebo">
+                                            <option value="">--pilih jumlah gazebo--</option>
+                                            <option value="1" {{ old('count_gazebo') == 1 ? 'selected' : '' }}>1
+                                                Unit Gazebo</option>
+                                            <option value="2" {{ old('count_gazebo') == 2 ? 'selected' : '' }}>2
+                                                Unit Gazebo</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
