@@ -11,6 +11,10 @@ class Pemohon extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'tanggal_pelaksanaan' => 'datetime:Y-m-d',
+    ];
+
     public function materis()
     {
         return $this->belongsToMany(Materi::class, 'materi_pemohon')->withTimestamps();

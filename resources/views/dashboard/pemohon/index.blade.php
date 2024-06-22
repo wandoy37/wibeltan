@@ -35,7 +35,17 @@
                                     @foreach ($pemohons as $pemohon)
                                         <tr>
                                             <td>{{ $pemohon->tanggal_pelaksanaan }}</td>
-                                            <td>{{ $pemohon->asal }}</td>
+                                            <td>
+                                                {{ $pemohon->asal }}
+                                                @if ($pemohon->dokumen !== null)
+                                                    <br>
+                                                    <a href="{{ asset('storage/' . $pemohon->dokumen) }}" target="_blank"
+                                                        class="text-decoration-none">
+                                                        <i class="far fa-eye"></i>
+                                                        Surat Permohonan
+                                                    </a>
+                                                @endif
+                                            </td>
                                             <td>{{ $pemohon->count_peserta }}</td>
                                             <td>
                                                 <ul>
@@ -76,6 +86,8 @@
 
 @push('scripts')
     <script>
-        $('#basic-datatables').DataTable();
+        $('#basic-datatables').DataTable({
+            "ordering": false
+        });
     </script>
 @endpush

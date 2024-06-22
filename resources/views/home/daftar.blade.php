@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="{{ asset('jquery/datepicker/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('jquery/datepicker/jquery-ui.js') }}"></script>
+    <style>
+        .disabled-date {
+            background-color: red;
+            color: white;
+            text-decoration: line-through;
+            text-decoration-color: black;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -39,7 +47,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('daftar.store') }}" method="POST">
+                            <form action="{{ route('daftar.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
@@ -131,6 +139,17 @@
                                                 @endforeach
                                             </div>
                                         </div>
+                                        <div class="col-md-12 my-4">
+                                            <div class="mb-3">
+                                                <label class="form-label">Upload Surat Permohonan</label>
+                                                @error('dokumen')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                                <input class="form-control" name="dokumen" type="file"
+                                                    accept="application/pdf">
+                                                <i class="text-decoration-underline">Max Size : 2mb</i>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -154,14 +173,19 @@
 @push('scripts')
     <script>
         $(function() {
-            var disabledDates = @json($jadwals->pluck('tanggal_pelaksanaan'));
+            var disabledDates = @json(
+                $jadwals->pluck('tanggal_pelaksanaan')->map(function ($date) {
+                    return \Carbon\Carbon::parse($date)->format('Y-m-d');
+                }));
 
             function disableDates(date) {
                 var string = $.datepicker.formatDate('yy-mm-dd', date);
-                return [disabledDates.indexOf(string) === -1];
+                var isDisabled = disabledDates.indexOf(string) === -1;
+                return [isDisabled, isDisabled ? '' : 'disabled-date'];
             }
 
             $("#datepicker").datepicker({
+                dateFormat: 'yy-mm-dd',
                 beforeShowDay: disableDates
             });
         });

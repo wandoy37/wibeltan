@@ -75,6 +75,7 @@ class HomeController extends Controller
             'count_peserta' => 'required',
             'count_gazebo' => 'required',
             'materis' => 'required',
+            'dokumen' => 'required|mimes:pdf|max:2048'
         ]);
 
         if ($validator->fails()) {
@@ -85,6 +86,20 @@ class HomeController extends Controller
 
         DB::beginTransaction();
         try {
+            // Upload Dokumen
+            if ($request->file('dokumen')) {
+                $file = $request->file('dokumen');
+
+                // Menangkap nama asli file
+                $originalName = $file->getClientOriginalName();
+
+                // Membuat nama file unik
+                $uniqueName = time() . '_' . $originalName;
+
+                // Simpan file dengan nama unik
+                $filePath = $file->storeAs('uploads', $uniqueName, 'public');
+            }
+
             $pemohon = Pemohon::create([
                 'nama' => $request->nama,
                 'tanggal_pelaksanaan' => $request->tanggal_pelaksanaan,
@@ -93,7 +108,8 @@ class HomeController extends Controller
                 'no_hp' => $request->no_hp,
                 'count_peserta' => $request->count_peserta,
                 'count_gazebo' => $request->count_gazebo,
-                'verifikasi' => 'menunggu persetujuan'
+                'verifikasi' => 'menunggu persetujuan',
+                'dokumen' => $filePath,
             ]);
             $pemohon->materis()->attach($request->materis);
 
@@ -103,7 +119,7 @@ class HomeController extends Controller
             return redirect()->route('success')->with('success', 'Hi, ' . $request->nama);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->route('pemohon.create')->with('error', 'Permohonan Anda Gagal Di Buat');
+            return redirect()->back()->with('error', 'Permohonan Anda Gagal Di Buat');
         } finally {
             DB::commit();
         }

@@ -7,6 +7,9 @@ use App\Models\Pemohon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class PemohonController extends Controller
 {
@@ -27,8 +30,9 @@ class PemohonController extends Controller
     {
         $materi_pilihans = Materi::where('kategori', 'pilihan')->orderBy('id', 'DESC')->get();
         $materi_bawaans = Materi::where('kategori', 'bawaan')->orderBy('id', 'DESC')->get();
+        $jadwals = Pemohon::where('verifikasi', 'disetujui')->get();
 
-        return view('dashboard.pemohon.create', compact('materi_pilihans', 'materi_bawaans'));
+        return view('dashboard.pemohon.create', compact('materi_pilihans', 'materi_bawaans', 'jadwals'));
     }
 
     /**
@@ -45,6 +49,7 @@ class PemohonController extends Controller
             'count_peserta' => 'required',
             'count_gazebo' => 'required',
             'materis' => 'required',
+            'dokumen' => 'required|mimes:pdf|max:2048'
         ]);
 
         if ($validator->fails()) {
@@ -55,6 +60,20 @@ class PemohonController extends Controller
 
         DB::beginTransaction();
         try {
+            // Upload Dokumen
+            if ($request->file('dokumen')) {
+                $file = $request->file('dokumen');
+
+                // Menangkap nama asli file
+                $originalName = $file->getClientOriginalName();
+
+                // Membuat nama file unik
+                $uniqueName = time() . '_' . $originalName;
+
+                // Simpan file dengan nama unik
+                $filePath = $file->storeAs('uploads', $uniqueName, 'public');
+            }
+
             $pemohon = Pemohon::create([
                 'nama' => $request->nama,
                 'tanggal_pelaksanaan' => $request->tanggal_pelaksanaan,
@@ -63,7 +82,8 @@ class PemohonController extends Controller
                 'no_hp' => $request->no_hp,
                 'count_peserta' => $request->count_peserta,
                 'count_gazebo' => $request->count_gazebo,
-                'verifikasi' => 'menunggu persetujuan'
+                'verifikasi' => 'menunggu persetujuan',
+                'dokumen' => $filePath,
             ]);
             $pemohon->materis()->attach($request->materis);
 
@@ -95,8 +115,9 @@ class PemohonController extends Controller
         $pemohon = Pemohon::find($id);
         $materi_pilihans = Materi::where('kategori', 'pilihan')->orderBy('id', 'DESC')->get();
         $materi_bawaans = Materi::where('kategori', 'bawaan')->orderBy('id', 'DESC')->get();
+        $jadwals = Pemohon::where('verifikasi', 'disetujui')->get();
 
-        return view('dashboard.pemohon.edit', compact('pemohon', 'materi_pilihans', 'materi_bawaans'));
+        return view('dashboard.pemohon.edit', compact('pemohon', 'materi_pilihans', 'materi_bawaans', 'jadwals'));
     }
 
     /**
@@ -106,6 +127,7 @@ class PemohonController extends Controller
     {
         $pemohon = Pemohon::find($id);
 
+        // Validasi input
         $validator = Validator::make($request->all(), [
             'nama' => 'required',
             'tanggal_pelaksanaan' => 'required',
@@ -116,6 +138,7 @@ class PemohonController extends Controller
             'count_gazebo' => 'required',
             'materis' => 'required',
             'verifikasi' => 'required',
+            'dokumen' => 'nullable|mimes:pdf|max:2048', // validasi dokumen bersifat opsional
         ]);
 
         if ($validator->fails()) {
@@ -126,6 +149,7 @@ class PemohonController extends Controller
 
         DB::beginTransaction();
         try {
+            // Update data pemohon
             $pemohon->update([
                 'nama' => $request->nama,
                 'tanggal_pelaksanaan' => $request->tanggal_pelaksanaan,
@@ -136,19 +160,62 @@ class PemohonController extends Controller
                 'count_gazebo' => $request->count_gazebo,
                 'verifikasi' => $request->verifikasi,
             ]);
+
+            // Update relasi materi
             $pemohon->materis()->sync($request->materis);
 
+            // Handle file upload jika ada
+            if ($request->file('dokumen')) {
+                // Hapus dokumen lama jika ada
+                if ($pemohon->dokumen) {
+                    // Log path dokumen yang akan dihapus
+                    Log::info('Attempting to delete file at path: ' . $pemohon->dokumen);
+
+                    // Cek apakah file ada
+                    if (Storage::disk('public')->exists($pemohon->dokumen)) {
+                        Log::info('File exists: ' . $pemohon->dokumen);
+
+                        // Hapus file
+                        if (Storage::disk('public')->delete($pemohon->dokumen)) {
+                            Log::info('File deleted successfully.');
+                        } else {
+                            Log::warning('Failed to delete file.');
+                        }
+                    } else {
+                        Log::warning('File does not exist: ' . $pemohon->dokumen);
+                    }
+                }
+
+                $file = $request->file('dokumen');
+
+                // Menangkap nama asli file
+                $originalName = $file->getClientOriginalName();
+
+                // Membuat nama file unik
+                $uniqueName = time() . '_' . $originalName;
+
+                // Simpan file dengan nama unik
+                $filePath = $file->storeAs('uploads', $uniqueName, 'public');
+
+                // Log path dokumen baru
+                Log::info('New document path: ' . $filePath);
+
+                // Update path dokumen pada pemohon
+                $pemohon->update([
+                    'dokumen' => 'uploads/' . $uniqueName,
+                ]);
+            }
+
+            // Kirim notifikasi jika verifikasi disetujui
             if ($request->verifikasi == 'disetujui') {
-                // Whatsapp Send
                 $this->sendWhatsAppVerified($pemohon);
             }
 
+            DB::commit();
             return redirect()->route('pemohon.index')->with('success', 'Permohonan Berhasil Di Update');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->route('pemohon.edit', $pemohon->id)->with('error', 'Permohonan Gagal Di Update');
-        } finally {
-            DB::commit();
         }
     }
 
@@ -161,6 +228,25 @@ class PemohonController extends Controller
 
         DB::beginTransaction();
         try {
+            // Hapus dokumen lama jika ada
+            if ($pemohon->dokumen) {
+                // Log path dokumen yang akan dihapus
+                Log::info('Attempting to delete file at path: ' . $pemohon->dokumen);
+
+                // Cek apakah file ada
+                if (Storage::disk('public')->exists($pemohon->dokumen)) {
+                    Log::info('File exists: ' . $pemohon->dokumen);
+
+                    // Hapus file
+                    if (Storage::disk('public')->delete($pemohon->dokumen)) {
+                        Log::info('File deleted successfully.');
+                    } else {
+                        Log::warning('Failed to delete file.');
+                    }
+                } else {
+                    Log::warning('File does not exist: ' . $pemohon->dokumen);
+                }
+            }
             $pemohon->materis()->detach();
             $pemohon->delete();
             return redirect()->route('pemohon.index')->with('success', 'Permohonan Telah di Hapus');

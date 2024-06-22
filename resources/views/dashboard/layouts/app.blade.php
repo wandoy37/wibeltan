@@ -61,7 +61,9 @@
 
     </div>
     <!--   Core JS Files   -->
-    <script src="{{ asset('kaiadmin_lite') }}/assets/js/core/jquery-3.7.1.min.js"></script>
+    @if (!in_array(Route::currentRouteName(), ['pemohon.edit', 'pemohon.create']))
+        <script src="{{ asset('kaiadmin_lite') }}/assets/js/core/jquery-3.7.1.min.js"></script>
+    @endif
     <script src="{{ asset('kaiadmin_lite') }}/assets/js/core/popper.min.js"></script>
     <script src="{{ asset('kaiadmin_lite') }}/assets/js/core/bootstrap.min.js"></script>
 

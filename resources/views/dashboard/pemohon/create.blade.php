@@ -2,6 +2,22 @@
 
 @section('title', 'Tambah Pemohon')
 
+@push('style')
+    {{-- <link rel="stylesheet" href="{{ asset('jquery/datepicker/jquery-ui.css') }}"> --}}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="{{ asset('jquery/datepicker/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('jquery/datepicker/jquery-ui.js') }}"></script>
+
+    <style>
+        .disabled-date {
+            background-color: red;
+            color: white;
+            text-decoration: line-through;
+            text-decoration-color: black;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="page-inner">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
@@ -22,7 +38,7 @@
                         <h4>AJUKAN PERMOHONAN</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('pemohon.store') }}" method="POST">
+                        <form action="{{ route('pemohon.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -36,9 +52,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Tanggal Pelaksanaan</label>
-                                        <input type="date" name="tanggal_pelaksanaan"
-                                            class="form-control form-control @error('tanggal_pelaksanaan') is-invalid @enderror"
-                                            value="{{ old('tanggal_pelaksanaan') }}" />
+                                        <input type="text" name="tanggal_pelaksanaan" id="datepicker"
+                                            class="form-control @error('tanggal_pelaksanaan') is-invalid @enderror"
+                                            value="{{ old('tanggal_pelaksanaan') }}">
                                     </div>
                                 </div>
                             </div>
@@ -115,6 +131,16 @@
                                         @endforeach
                                     </div>
                                 </div>
+                                <div class="col-md-12 my-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Upload Surat Permohonan</label>
+                                        @error('dokumen')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                        <input class="form-control" name="dokumen" type="file" accept="application/pdf">
+                                        <i class="text-decoration-underline">Max Size : 2mb</i>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary btn-round">
@@ -129,3 +155,25 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(function() {
+            var disabledDates = @json(
+                $jadwals->pluck('tanggal_pelaksanaan')->map(function ($date) {
+                    return \Carbon\Carbon::parse($date)->format('Y-m-d');
+                }));
+
+            function disableDates(date) {
+                var string = $.datepicker.formatDate('yy-mm-dd', date);
+                var isDisabled = disabledDates.indexOf(string) === -1;
+                return [isDisabled, isDisabled ? '' : 'disabled-date'];
+            }
+
+            $("#datepicker").datepicker({
+                dateFormat: 'yy-mm-dd',
+                beforeShowDay: disableDates
+            });
+        });
+    </script>
+@endpush
