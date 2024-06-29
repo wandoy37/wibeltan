@@ -17,7 +17,9 @@ class HomeController extends Controller
     {
         $pemohons = Pemohon::orderBy('id', 'DESC')->get();
         $videos = Video::orderBy('id', 'DESC')->take(3)->get();
-        return view('home.index', compact('pemohons', 'videos'));
+        $countsAsal = Pemohon::where('verifikasi', 'disetujui')->get();
+        $totalPeserta = Pemohon::where('verifikasi', 'disetujui')->sum('count_peserta');
+        return view('home.index', compact('pemohons', 'videos', 'countsAsal', 'totalPeserta'));
     }
 
     public function jadwal()
