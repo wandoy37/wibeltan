@@ -45,6 +45,9 @@ Route::get('materi-wisata-belajar-pertanian/{slug}', [HomeController::class, 'ma
 Route::get('/publikasi-wisata-belajar-pertanian', [HomeController::class, 'publikasi'])->name('publikasi');
 Route::get('/publikasi-wisata-belajar-pertanian/{id}', [HomeController::class, 'publikasis_show'])->name('publikasis.show');
 
+// Form Survey
+Route::get('/form-survey', [HomeController::class, 'form_survey'])->name('form_survey');
+
 // Form Daftar Permohonan Wisata
 Route::get('/daftar', [HomeController::class, 'daftar'])->name('daftar');
 Route::post('/daftar/store', [HomeController::class, 'store'])->name('daftar.store');

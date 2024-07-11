@@ -127,6 +127,11 @@ class HomeController extends Controller
         }
     }
 
+    public function form_survey()
+    {
+        return view('home.form_survey');
+    }
+
     private function sendWhatsAppNotification($pemohon)
     {
         $curl = curl_init();
