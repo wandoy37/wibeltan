@@ -173,14 +173,29 @@
                         alt="">
                 </div>
                 <div class="col-lg-6">
-                    <h1>
+                    {{-- <h1>
                         <strong style="color: #013220">WIBELTAN</strong>
-                    </h1>
+                    </h1> --}}
                     <h1>Sistem Informasi Wisata Belajar Pertanian</h1>
                     <p>
-                        Sistem Informasi Wisata Belajar Pertanian <b>"WIBELTAN"</b> merupakan inovasi aksi perubahan yang di
-                        rancang untuk memudahkan pendaftaran pariwisata dan pembelajaran dalam bidang pertanian.
+                        Sistem Informasi Wisata Belajar Pertanian (WIBELTAN) adalah sebuah sistem informasi yang dibuat
+                        untuk mendukung kegiatan wisata edukatif di bidang pertanian. Sistem ini dirancang untuk memberikan
+                        informasi yang dibutuhkan oleh pengunjung atau wisatawan yang tertarik untuk belajar lebih banyak
+                        tentang pertanian, baik itu praktik budidaya, teknologi pertanian, maupun pengelolaan sumber daya
+                        alam dalam konteks pertanian di UPTD Balai Penyuluhan dan Pengembangan SDM Pertanian.
                     </p>
+                    <br>
+                    <p>
+                        Beberapa komponen dan fitur yang ada dalam Sistem Informasi Wisata Belajar Pertanian yaitu :
+                    </p>
+                    <ol type="1">
+                        <li>Halaman Utama : Memberikan Informasi umum tentang sistem informasi wisata belajar pertanian</li>
+                        <li>Halaman Materi : Menyediakan daftar informasi materi pembelajaran wisata belajar pertanian </li>
+                        <li>Halaman Jadwal : Menyediakan jadwal kegiatan yang telah disetujui dan ketersediaan waktu
+                            kunjungan wisata belajar pertanian</li>
+                        <li>Halaman Publikasi : Menyediakan Galery foto atau video pelaksanaan kegiatan wisata belajar
+                            pertanian</li>
+                    </ol>
                 </div>
                 <div class="col-lg-12">
                     <hr class="my-4">
@@ -260,7 +275,8 @@
                                 <tbody>
                                     @foreach ($pemohons as $pemohon)
                                         <tr>
-                                            <td class="text-center">{{ $pemohon->tanggal_pelaksanaan }}</td>
+                                            <td class="text-center">{{ $pemohon->tanggal_pelaksanaan->format('Y-m-d') }}
+                                            </td>
                                             <td>{{ $pemohon->asal }}</td>
                                             <td class="text-center">{{ $pemohon->count_peserta }}</td>
                                             <td>
@@ -404,6 +420,9 @@
     <script src="{{ asset('datatables/js/jquery-3.7.0.min.js') }}"></script>
     <script src="{{ asset('datatables/js/jquery.dataTables.js') }}"></script>
     <script>
-        new DataTable('#example');
+        // new DataTable('#example');
+        $('#example').DataTable({
+            "ordering": false
+        });
     </script>
 @endpush

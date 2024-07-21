@@ -34,7 +34,7 @@
                                 <tbody>
                                     @foreach ($pemohons as $pemohon)
                                         <tr>
-                                            <td>{{ $pemohon->tanggal_pelaksanaan }}</td>
+                                            <td>{{ $pemohon->tanggal_pelaksanaan->format('Y-m-d') }}</td>
                                             <td>
                                                 {{ $pemohon->asal }}
                                                 @if ($pemohon->dokumen !== null)

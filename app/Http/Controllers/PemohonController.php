@@ -20,6 +20,7 @@ class PemohonController extends Controller
     public function index()
     {
         $pemohons = Pemohon::orderBy('id', 'DESC')->get();
+        // return response()->json($pemohons);
         return view('dashboard.pemohon.index', compact('pemohons'));
     }
 

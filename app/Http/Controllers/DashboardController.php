@@ -16,7 +16,8 @@ class DashboardController extends Controller
         $pesertas = Pemohon::sum('count_peserta');
         $waitings = Pemohon::where('verifikasi', 'menunggu persetujuan')->get();
         $verifieds = Pemohon::where('verifikasi', 'disetujui')->get();
-        return view('dashboard.index', compact('jadwals', 'waitings', 'verifieds', 'pesertas'));
+        $surveys = Survey::orderBy('id', 'DESC')->get();
+        return view('dashboard.index', compact('jadwals', 'waitings', 'verifieds', 'pesertas', 'surveys'));
     }
 
     public function survey()

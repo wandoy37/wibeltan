@@ -18,7 +18,7 @@
                                 width="100%">
                                 <thead>
                                     <th>No</th>
-                                    <th>Volume</th>
+                                    <th>Asal Sekolah/Intansi/Organisasi/Kelompok</th>
                                     <th>Asal</th>
                                     <th>Jawaban</th>
                                     <th>Saran & Masukan</th>
@@ -29,7 +29,7 @@
                                     @endphp
                                     @foreach ($surveys as $survey)
                                         <tr>
-                                            <td>{{ $no }}</td>
+                                            <td>{{ $no++ }}</td>
                                             <td>{{ $survey->nama }}</td>
                                             <td>{{ $survey->asal }}</td>
                                             <td>{{ $survey->jawaban }}</td>

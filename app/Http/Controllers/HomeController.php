@@ -24,8 +24,9 @@ class HomeController extends Controller
 
     public function jadwal()
     {
-        $jadwals = Pemohon::where('verifikasi', 'disetujui')->get();
-        return view('home.jadwal', compact('jadwals'));
+        $jadwals = Pemohon::where('verifikasi', 'disetujui', 'menunggu persetujuan')->get();
+        $pemohons = Pemohon::orderBy('id', 'DESC')->get();
+        return view('home.jadwal', compact('jadwals', 'pemohons'));
     }
 
     public function materi()
