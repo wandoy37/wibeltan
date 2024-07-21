@@ -19,6 +19,7 @@ class HomeController extends Controller
         $videos = Video::orderBy('id', 'DESC')->take(3)->get();
         $countsAsal = Pemohon::where('verifikasi', 'disetujui')->get();
         $totalPeserta = Pemohon::where('verifikasi', 'disetujui')->sum('count_peserta');
+        Carbon::setLocale('id');
         return view('home.index', compact('pemohons', 'videos', 'countsAsal', 'totalPeserta'));
     }
 
@@ -26,6 +27,7 @@ class HomeController extends Controller
     {
         $jadwals = Pemohon::where('verifikasi', 'disetujui', 'menunggu persetujuan')->get();
         $pemohons = Pemohon::orderBy('id', 'DESC')->get();
+        Carbon::setLocale('id');
         return view('home.jadwal', compact('jadwals', 'pemohons'));
     }
 
@@ -147,7 +149,7 @@ class HomeController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => [
-                'target' => '082148722747',
+                'target' => env('SEND_WA_OPERATOR'),
                 'message' => 'Hi, Operator *WIBELTAN* Ada Permohonan Wisata Belajar Pertanian Atas Nama ' . $pemohon->nama . ' Dari ' . $pemohon->asal . ', Segera Cek dan Lakukan Konfirmasi Pelaksanaan Melalui Link Berikut : ' . route('pemohon.edit', $pemohon->id),
             ],
             CURLOPT_HTTPHEADER => [

@@ -20,7 +20,7 @@ class PemohonController extends Controller
     public function index()
     {
         $pemohons = Pemohon::orderBy('id', 'DESC')->get();
-        // return response()->json($pemohons);
+        Carbon::setLocale('id');
         return view('dashboard.pemohon.index', compact('pemohons'));
     }
 
@@ -296,6 +296,7 @@ class PemohonController extends Controller
     private function sendWhatsAppVerified($pemohon)
     {
         $curl = curl_init();
+        Carbon::setLocale('id');
 
         curl_setopt_array($curl, [
             CURLOPT_URL => 'https://api.fonnte.com/send',
@@ -308,7 +309,7 @@ class PemohonController extends Controller
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => [
                 'target' => $pemohon->no_hp,
-                'message' => 'Hi, ' . $pemohon->nama . ' Permohonan Wisata Belajar Pertanian Anda Sudah di Verifikasi dan akan di laksanakan pada tanggal ' . $pemohon->tanggal_pelaksanaan,
+                'message' => 'Hi, ' . $pemohon->nama . ' Permohonan Wisata Belajar Pertanian Anda Sudah di Verifikasi dan akan di laksanakan pada tanggal ' . $pemohon->tanggal_pelaksanaan->translatedFormat('d F Y'),
             ],
             CURLOPT_HTTPHEADER => [
                 'Authorization: BRnQBvYJ@Z277QTqGokt'

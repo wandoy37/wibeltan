@@ -97,7 +97,8 @@
                                 <tbody>
                                     @foreach ($pemohons as $pemohon)
                                         <tr>
-                                            <td class="text-center">{{ $pemohon->tanggal_pelaksanaan->format('Y-m-d') }}
+                                            <td class="text-center">
+                                                {{ $pemohon->tanggal_pelaksanaan->translatedFormat('d M Y') }}
                                             </td>
                                             <td>{{ $pemohon->asal }}</td>
                                             <td class="text-center">{{ $pemohon->count_peserta }}</td>
