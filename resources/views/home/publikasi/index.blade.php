@@ -49,6 +49,25 @@
         </div>
     </section>
 
+    <section class="my-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="my-4">Cuplika Wisata Belajar Pertanian</h2>
+                    <div class="row">
+                        @foreach ($videos as $video)
+                            <div class="col-md-3">
+                                <iframe width="320" height="300" src="{{ $video->link }}">
+                                </iframe>
+                            </div>
+                        @endforeach
+                    </div>
+                    <hr class="my-4">
+                </div>
+            </div>
+        </div>
+    </section>
+
 @endsection
 
 @push('scripts')

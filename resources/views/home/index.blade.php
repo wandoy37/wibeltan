@@ -336,8 +336,8 @@
                     <h2 class="my-4">Cuplika Wisata Belajar Pertanian</h2>
                     <div class="row">
                         @foreach ($videos as $video)
-                            <div class="col-md-4">
-                                <iframe width="420" height="315" src="{{ $video->link }}">
+                            <div class="col-md-3">
+                                <iframe width="320" height="300" src="{{ $video->link }}">
                                 </iframe>
                             </div>
                         @endforeach

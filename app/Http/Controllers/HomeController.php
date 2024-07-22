@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function index()
     {
         $pemohons = Pemohon::orderBy('id', 'DESC')->get();
-        $videos = Video::orderBy('id', 'DESC')->take(3)->get();
+        $videos = Video::orderBy('id', 'DESC')->take(4)->get();
         $countsAsal = Pemohon::where('verifikasi', 'disetujui')->get();
         $totalPeserta = Pemohon::where('verifikasi', 'disetujui')->sum('count_peserta');
         Carbon::setLocale('id');
@@ -51,7 +51,8 @@ class HomeController extends Controller
         $pemohons = Pemohon::where('verifikasi', 'disetujui')
             ->where('tanggal_pelaksanaan', '<', $today)
             ->get();
-        return view('home.publikasi.index', compact('pemohons'));
+        $videos = Video::orderBy('id', 'DESC')->take(4)->get();
+        return view('home.publikasi.index', compact('pemohons', 'videos'));
     }
 
     public function publikasis_show($id)
