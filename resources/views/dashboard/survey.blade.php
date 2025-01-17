@@ -18,8 +18,8 @@
                                 width="100%">
                                 <thead>
                                     <th>No</th>
+                                    <th>Nama</th>
                                     <th>Asal Sekolah/Intansi/Organisasi/Kelompok</th>
-                                    <th>Asal</th>
                                     <th>Jawaban</th>
                                     <th>Saran & Masukan</th>
                                 </thead>
