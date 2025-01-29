@@ -62,19 +62,19 @@ class PemohonController extends Controller
         DB::beginTransaction();
         try {
             // Upload Dokumen
-            if ($request->file('dokumen')) {
+            if ($request->hasFile('dokumen') && $request->file('dokumen')->isValid()) {
                 $file = $request->file('dokumen');
 
-                // Menangkap nama asli file
-                $originalName = $file->getClientOriginalName();
-
-                // Membuat nama file unik
-                $uniqueName = time() . '_' . $originalName;
+                // Membuat nama file unik dengan ekstensi asli
+                $uniqueName = time() . '.' . $file->getClientOriginalExtension();
 
                 // Simpan file dengan nama unik
                 $filePath = $file->storeAs('uploads', $uniqueName, 'public');
+            } else {
+                $filePath = null; // Jika file tidak diunggah, set null
             }
 
+            // Simpan data pemohon
             $pemohon = Pemohon::create([
                 'nama' => $request->nama,
                 'tanggal_pelaksanaan' => $request->tanggal_pelaksanaan,
@@ -84,9 +84,13 @@ class PemohonController extends Controller
                 'count_peserta' => $request->count_peserta,
                 'count_gazebo' => $request->count_gazebo,
                 'verifikasi' => 'menunggu persetujuan',
-                'dokumen' => $filePath,
+                'dokumen' => $filePath, // Simpan path file di database
             ]);
-            $pemohon->materis()->attach($request->materis);
+
+            // Attach materis
+            if ($request->materis) {
+                $pemohon->materis()->attach($request->materis);
+            }
 
             // Whatsapp Send
             $this->sendWhatsAppNotification($pemohon);
@@ -189,11 +193,8 @@ class PemohonController extends Controller
 
                 $file = $request->file('dokumen');
 
-                // Menangkap nama asli file
-                $originalName = $file->getClientOriginalName();
-
                 // Membuat nama file unik
-                $uniqueName = time() . '_' . $originalName;
+                $uniqueName = time() . '.' . $file->getClientOriginalExtension();
 
                 // Simpan file dengan nama unik
                 $filePath = $file->storeAs('uploads', $uniqueName, 'public');
