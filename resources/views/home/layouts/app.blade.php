@@ -80,7 +80,7 @@
                 width="72">
             <b class="display-6 fw-bold">UPTD BPPSDMP</b>
             <br>
-            <small class="mb-1 text-muted">&copy; 2023-2024 UPTD BPPSDMP PROVINSI KALIMANTAN
+            <small class="mb-1 text-muted">&copy; 2023-{{ date('Y') }} UPTD BPPSDMP PROVINSI KALIMANTAN
                 TIMUR</small>
             <div class="py-2">
                 <a href="http://" class="text-decoration-none text-muted h4">

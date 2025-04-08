@@ -17,7 +17,7 @@ class PublikasiController extends Controller
 
         // Mencari data pemohons yang verifikasi disetujui dan tanggal_pelaksanaan sudah lewat dari hari ini
         $pemohons = Pemohon::where('verifikasi', 'disetujui')
-            ->where('tanggal_pelaksanaan', '<', $today)
+            ->orderBy('tanggal_pelaksanaan', 'desc')
             ->get();
 
         return view('dashboard.publikasi.index', compact('pemohons'));

@@ -15,7 +15,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $pemohons = Pemohon::orderBy('id', 'DESC')->get();
+        $pemohons = Pemohon::orderBy('tanggal_pelaksanaan', 'desc')->get();
         $videos = Video::orderBy('id', 'DESC')->take(4)->get();
         $countsAsal = Pemohon::where('verifikasi', 'disetujui')->get();
         $totalPeserta = Pemohon::where('verifikasi', 'disetujui')->sum('count_peserta');

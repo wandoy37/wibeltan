@@ -38,7 +38,7 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $pemohon->asal }}</td>
                                             <td>
-                                                {{ $pemohon->tanggal_pelaksanaan }}
+                                                {{ $pemohon->tanggal_pelaksanaan->translatedFormat('d M Y') }}
                                                 <br>
                                                 <span class="badge badge-success">Terlaksana</span>
                                             </td>
