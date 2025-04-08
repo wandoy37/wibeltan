@@ -168,6 +168,13 @@
     <section>
         <div class="container">
             <div class="row align-items-center my-4">
+                @if ($errors->any())
+                    <div class="col-lg-12">
+                        <div class="alert alert-warning" role="alert">
+                            Survey anda gagal terkirim, periksa kembali data yang ada masukkan!
+                        </div>
+                    </div>
+                @endif
                 <div class="col-lg-6">
                     <img src="{{ asset('img/img_information.png') }}" class="img-fluid img-thumbnail rounded"
                         alt="">
@@ -351,6 +358,13 @@
     <section class="my-4" id="survey">
         <div class="container">
             <div class="row justify-content-center">
+                @if ($errors->any())
+                    <div class="col-lg-12">
+                        <div class="alert alert-warning" role="alert">
+                            Survey anda gagal terkirim, periksa kembali data yang ada masukkan!
+                        </div>
+                    </div>
+                @endif
                 <div class="col-lg-6">
                     <div class="card shadow">
                         <div class="card-body">
@@ -401,6 +415,20 @@
                                     <label class="form-label">Saran & Masukan</label>
                                     <textarea class="form-control" name="saran_masukan" required rows="2"></textarea>
                                 </div>
+                                <div class="row mb-3">
+                                    <div class="col-12">
+                                        <div class="d-flex flex-wrap align-items-center gap-2">
+                                            <div class="captcha">
+                                                <span>{!! captcha_img('math') !!}</span>
+                                                <button type="button" class="btn btn-danger reload"
+                                                    id="reload">&#x21bb;</button>
+                                            </div>
+                                            <input type="text" name="captcha"
+                                                class="form-control form-control-user @error('captcha') is-invalid @enderror"
+                                                placeholder="captcha" style="max-width: 200px;">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="d-grid">
                                     <button class="btn btn-primary" type="submit">
                                         <i class="fa-solid fa-share-from-square"></i>
@@ -424,6 +452,18 @@
         // new DataTable('#example');
         $('#example').DataTable({
             "ordering": false
+        });
+    </script>
+
+    <script>
+        $('#reload').click(function() {
+            $.ajax({
+                type: 'GET',
+                url: 'reload-captcha',
+                success: function(data) {
+                    $(".captcha span").html(data.captcha)
+                }
+            });
         });
     </script>
 @endpush

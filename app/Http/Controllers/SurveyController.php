@@ -16,6 +16,7 @@ class SurveyController extends Controller
             'asal' => 'required',
             'jawaban' => 'required',
             'saran_masukan' => 'required',
+            'captcha' => 'required|captcha'
         ]);
 
         if ($validator->fails()) {
