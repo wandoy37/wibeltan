@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CaptchaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MateriController;
@@ -33,6 +34,7 @@ Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], funct
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
+Route::get('/reload-captcha', [CaptchaController::class, 'reloadCaptcha']);
 
 
 // Route Home Views

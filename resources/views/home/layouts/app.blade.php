@@ -76,8 +76,7 @@
 
 
         <div class="text-center py-4">
-            <img class="d-block mx-auto mb-2" src="http://www.simpeltan.test/img/logo_kaltim.png" alt=""
-                width="72">
+            <img class="d-block mx-auto mb-2" src="{{ asset('img/logo_kaltim.png') }}" alt="" width="72">
             <b class="display-6 fw-bold">UPTD BPPSDMP</b>
             <br>
             <small class="mb-1 text-muted">&copy; 2023-{{ date('Y') }} UPTD BPPSDMP PROVINSI KALIMANTAN

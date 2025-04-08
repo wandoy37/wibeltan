@@ -44,6 +44,14 @@
     <section>
         <div class="container">
             <div class="row">
+                @if ($errors->any())
+                    <div class="col-lg-12">
+                        <div class="alert alert-warning" role="alert">
+                            Pendaftaran gagal, mohon periksa kembali data yang ada masukkan!
+                        </div>
+                    </div>
+                @endif
+
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
@@ -156,6 +164,24 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    {{-- captcha --}}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="d-flex flex-wrap align-items-center gap-2">
+                                                <div class="captcha">
+                                                    <span>{!! captcha_img('math') !!}</span>
+                                                    <button type="button" class="btn btn-danger reload"
+                                                        id="reload">&#x21bb;</button>
+                                                </div>
+                                                <input type="text" name="captcha"
+                                                    class="form-control form-control-user @error('captcha') is-invalid @enderror"
+                                                    placeholder="captcha" style="max-width: 200px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- end captcha --}}
+
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="float-end">
@@ -192,6 +218,18 @@
             $("#datepicker").datepicker({
                 dateFormat: 'yy-mm-dd',
                 beforeShowDay: disableDates
+            });
+        });
+    </script>
+
+    <script>
+        $('#reload').click(function() {
+            $.ajax({
+                type: 'GET',
+                url: 'reload-captcha',
+                success: function(data) {
+                    $(".captcha span").html(data.captcha)
+                }
             });
         });
     </script>

@@ -81,7 +81,8 @@ class HomeController extends Controller
             'count_peserta' => 'required',
             'count_gazebo' => 'required',
             'materis' => 'required',
-            'dokumen' => 'required|mimes:pdf|max:2048'
+            'dokumen' => 'required|mimes:pdf|max:2048',
+            'captcha' => 'required|captcha'
         ]);
 
         if ($validator->fails()) {
