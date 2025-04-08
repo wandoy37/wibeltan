@@ -56,6 +56,22 @@
                                         <input type="password" class="form-control form-control-user" name="password"
                                             placeholder="Password">
                                     </div>
+                                    {{-- captcha --}}
+                                    <div class="row my-4">
+                                        <div class="col-12">
+                                            <div class="d-flex flex-wrap align-items-center gap-2">
+                                                <div class="captcha">
+                                                    <span>{!! captcha_img('math') !!}</span>
+                                                    <button type="button" class="btn btn-danger reload"
+                                                        id="reload">&#x21bb;</button>
+                                                </div>
+                                                <input type="text" name="captcha"
+                                                    class="form-control form-control-user @error('captcha') is-invalid @enderror"
+                                                    placeholder="captcha" style="max-width: 200px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- end captcha --}}
                                     <button class="btn btn-success btn-user btn-block">
                                         <i class="fa-solid fa-right-to-bracket"></i>
                                         LOGIN
@@ -80,7 +96,17 @@
 
         <!-- Custom scripts for all pages-->
         <script src="{{ asset('sbadmin/js/sb-admin-2.min.js') }}"></script>
-
+        <script>
+            $('#reload').click(function() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'reload-captcha',
+                    success: function(data) {
+                        $(".captcha span").html(data.captcha)
+                    }
+                });
+            });
+        </script>
 </body>
 
 </html>
